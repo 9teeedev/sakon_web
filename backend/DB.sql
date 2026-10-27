@@ -1,0 +1,67 @@
+CREATE DATABASE IF NOT EXISTS `sakon_web`;
+USE `sakon_web`;
+
+CREATE TABLE IF NOT EXISTS `placeType` (
+	typeID INT AUTO_INCREMENT PRIMARY KEY,
+	typeName VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS `Amphoe` (
+	amphoeID INT AUTO_INCREMENT PRIMARY KEY,
+	amphoeName VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS `place` (
+	placeID INT AUTO_INCREMENT PRIMARY KEY,
+	placeName VARCHAR(50) NOT NULL,
+	placeDetail VARCHAR(200),
+	GPS VARCHAR(100) NOT NULL,
+	address VARCHAR(100) NOT NULL,
+	typeID INT,
+	amphoeID INT,
+	CONSTRAINT fk_typeID FOREIGN KEY (typeID) REFERENCES placeType(typeID),
+	CONSTRAINT fk_amphoeID FOREIGN KEY (amphoeID) REFERENCES Amphoe(amphoeID)
+);
+
+CREATE TABLE IF NOT EXISTS `productType` (
+	pTypeID INT AUTO_INCREMENT PRIMARY KEY,
+	pTypeName VARCHAR(20)
+);
+
+CREATE TABLE IF NOT EXISTS `product` (
+	pID INT AUTO_INCREMENT PRIMARY KEY,
+	pName VARCHAR(50) NOT NULL,
+	pDetail VARCHAR(100),
+	placeID INT,
+	pTypeID INT,
+	CONSTRAINT fk_product_place FOREIGN KEY (placeID) REFERENCES place(placeID),
+	CONSTRAINT fk_product_type FOREIGN KEY (pTypeID) REFERENCES products(pTypeID)
+);
+
+ALTER TABLE `product` 
+    ADD COLUMN `pTypeID` INT,
+    ADD CONSTRAINT `fk_product_type` FOREIGN KEY (`pTypeID`) REFERENCES `productType`(`pTypeID`);
+
+
+CREATE TABLE IF NOT EXISTS `placeImages` (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	imgPath VARCHAR(200) NOT NULL,
+	placeID INT,
+	CONSTRAINT fk_placeImages_place FOREIGN KEY (placeID) REFERENCES place(placeID)
+);
+
+CREATE TABLE IF NOT EXISTS `productImages` (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	imgPath VARCHAR(200) NOT NULL,
+	pID INT,
+	CONSTRAINT fk_productImages_product FOREIGN KEY (pID) REFERENCES product(pID)
+);
+
+CREATE TABLE IF NOT EXISTS `users` (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	username VARCHAR(20) NOT NULL,
+	password VARCHAR(255) NOT NULL,
+	email VARCHAR(50) NOT NULL,
+	name VARCHAR(100) NOT NULL,
+	role ENUM('admin','member') NOT NULL
+);
