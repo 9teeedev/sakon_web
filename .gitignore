@@ -1,0 +1,33 @@
+# Dependencies
+**/node_modules/
+
+# Environment files and secrets
+.env
+.env.*
+!.env.example
+
+# Build output and caches
+**/dist/
+**/.angular/
+**/out-tsc/
+**/coverage/
+**/.sass-cache/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE and editor files
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
