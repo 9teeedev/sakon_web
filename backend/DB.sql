@@ -35,13 +35,8 @@ CREATE TABLE IF NOT EXISTS `product` (
 	placeID INT,
 	pTypeID INT,
 	CONSTRAINT fk_product_place FOREIGN KEY (placeID) REFERENCES place(placeID),
-	CONSTRAINT fk_product_type FOREIGN KEY (pTypeID) REFERENCES products(pTypeID)
+	CONSTRAINT fk_product_type FOREIGN KEY (pTypeID) REFERENCES productType(pTypeID)
 );
-
-ALTER TABLE `product` 
-    ADD COLUMN `pTypeID` INT,
-    ADD CONSTRAINT `fk_product_type` FOREIGN KEY (`pTypeID`) REFERENCES `productType`(`pTypeID`);
-
 
 CREATE TABLE IF NOT EXISTS `placeImages` (
 	id INT AUTO_INCREMENT PRIMARY KEY,

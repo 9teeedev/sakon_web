@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Auth } from '../auth';
+import { Router } from '@angular/router';
 
 export type AdminPage =
   | 'dashboard'
@@ -22,9 +24,13 @@ export class AdminDashboard {
   protected usersOpen = false;
   protected settingsOpen = false;
   protected activePage: AdminPage = 'dashboard';
-
+  constructor(private auth: Auth, private router: Router){}
   protected setPage(page: AdminPage): void {
     this.activePage = page;
     this.sidebarOpen = false;
+  }
+  protected logout(): void {
+    this.auth.logout();
+    this.router.navigate(['/signin']);
   }
 }
